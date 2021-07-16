@@ -28,10 +28,10 @@ class Tugas12Controller extends Controller
     public function store(Request $request){
 
         $this->validate($request, [
-            'file' => 'required|max:2048'
+            'foto' => 'required|max:2048'
         ]);
 
-        $file = $request->file('file');
+        $file = $request->file('foto');
         $nama_file = time()."_".$file->getClientOriginalName();
 
         $tujuan_upload = 'data_file';
@@ -42,7 +42,7 @@ class Tugas12Controller extends Controller
                 'jabatan' => $request->jabatan,
                 'umur' => $request->umur,
                 'alamat' => $request->alamat,
-                'foto' => $request->foto
+                'foto' => $nama_file
             ]);
 
             $res['message'] = "Success!";
@@ -54,12 +54,12 @@ class Tugas12Controller extends Controller
 
     public function update(Request $request){
 
-        if(!empty($request->file)){
+        if(!empty($request->foto)){
             $this->validate($request, [
-                'file' => 'required|max:2048'
+                'foto' => 'required|max:2048'
             ]);
 
-            $file = $request->file('file');
+            $file = $request->file('foto');
 
             $nama_file = time()."_".$file->getClientOriginalName();
             $tujuan_upload = 'data_file';
@@ -74,7 +74,7 @@ class Tugas12Controller extends Controller
                     'jabatan' => $request->jabatan,
                     'umur' => $request->umur,
                     'alamat' => $request->alamat,
-                    'foto' => $request->foto
+                    'foto' => $nama_file
                 ]);
 
                 $res['message'] = "Success!";
@@ -105,14 +105,14 @@ class Tugas12Controller extends Controller
 
     public function delete($id){
 
-        $data = Tabel12::where('id', $id)->get();
+        $data = Tugas12::where('id', $id)->get();
 
         foreach($data as $data){
 
-            if(file_exist(public_path('data_file/'.$data->foto))){
+            if(file_exists(public_path('data_file/'.$data->foto))){
 
                 @unlink(public_path('data_file/'.$data->foto));
-                Tabel12::where('id', $id)->delete();
+                Tugas12::where('id', $id)->delete();
                 $res['message'] = "Success!";
                 
                 return response($res);

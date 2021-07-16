@@ -18,5 +18,5 @@ Route::get('/', function () {
 Route::get('/getData', 'Tugas12Controller@getData');
 Route::post('/pushData', 'Tugas12Controller@store');
 Route::post('/setData', 'Tugas12Controller@update');
-Route::get('/delete/{id}', 'Tugas12Controller@hapus');
+Route::get('/delete/{id}', 'Tugas12Controller@delete');
 Route::get('/getDetail/{id}', 'Tugas12Controller@getDetail');
